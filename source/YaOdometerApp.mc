@@ -16,13 +16,13 @@ class YaOdometerApp extends Application.AppBase {
     function onStop(state as Dictionary?) as Void {
     }
 
-    var m_view as YaOdometerView = null;
-    function getInitialView() as Array<Views or InputDelegates>? {
+    var m_view as YaOdometerView?;
+    function getInitialView() as Array<Ui.Views or Ui.InputDelegates>? {
         m_view = new YaOdometerView();
-        return [ m_view ] as Array<Views or InputDelegates>;
+        return [ m_view ] as Array<Ui.Views or Ui.InputDelegates>;
     }
 
-    function storeSetting(name as String, value as Double or String) as Void {
+    function storeSetting(name as String, value as Double) as Void {
         try {
             if (Application has :Storage) {
                 Properties.setValue(name, value);
@@ -33,7 +33,7 @@ class YaOdometerApp extends Application.AppBase {
             Sys.println(Lang.format("storeSetting($1$, $2$) exception: $3$", [name, value, ex.getErrorMessage()])); 
         }
     }
-    function readSetting(name as String, defValue as Double or String) as Double or String or Null {
+    function readSetting(name as String, defValue as Double) as Double {
         try {
             if (Application has :Storage) {
                 var ret = Properties.getValue(name);
@@ -50,11 +50,7 @@ class YaOdometerApp extends Application.AppBase {
     
     function onSettingsChanged() {
         AppBase.onSettingsChanged();
-        m_view.onSettingsChanged();
+        if(m_view != null) { m_view.onSettingsChanged(); }
         Ui.requestUpdate();
     }
-}
-
-function getApp() as YaOdometerApp {
-    return Application.getApp() as YaOdometerApp;
 }
