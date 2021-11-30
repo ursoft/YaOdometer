@@ -1,0 +1,6 @@
+<strings>
+    <string id="AppName">YaOdometer</string>
+    <string id="Kilometers">Пробег, км</string>
+    <string id="Miles">Пробег, миль</string>
+    <string id="TotalOffsetTitle">Пробег, в метрах</string>
+</strings>

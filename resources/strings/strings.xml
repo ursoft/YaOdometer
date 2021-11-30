@@ -1,0 +1,6 @@
+<strings>
+    <string id="AppName">YaOdometer</string>
+    <string id="Kilometers">Mileage, km</string>
+    <string id="Miles">Mileage</string>
+    <string id="TotalOffsetTitle">Offset in meters</string>
+</strings>

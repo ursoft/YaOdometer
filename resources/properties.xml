@@ -1,0 +1,10 @@
+<resources>
+    <properties>
+        <property id="TotalOffset" type="float">0</property>
+    </properties>
+    <settings>
+        <setting propertyKey="@Properties.TotalOffset" title="@Strings.TotalOffsetTitle">
+            <settingConfig type="numeric" />
+        </setting>
+    </settings>
+</resources>
