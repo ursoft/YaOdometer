@@ -30,7 +30,7 @@ class YaOdometerApp extends Application.AppBase {
                 AppBase.setProperty(name, value);
             }
         } catch(ex) {
-            Sys.println("storeSetting exception: " + ex); 
+            Sys.println(Lang.format("storeSetting($1$, $2$) exception: $3$", [name, value, ex.getErrorMessage()])); 
         }
     }
     function readSetting(name as String, defValue as Double or String) as Double or String or Null {
@@ -42,7 +42,7 @@ class YaOdometerApp extends Application.AppBase {
                 return AppBase.getProperty(name);
             }
         } catch(ex) {
-            Sys.println("readSetting exception: " + ex); 
+            Sys.println(Lang.format("readSetting($1$) exception: $2$", [name, ex.getErrorMessage()])); 
             storeSetting(name, defValue);
             return defValue;
         }
