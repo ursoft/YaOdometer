@@ -4,16 +4,34 @@ import Toybox.Time;
 using Toybox.System as Sys;
 using Toybox.WatchUi as Ui;
 
-const SAVE_PERIOD = 10 * 60 * 1000; //10 минут
+const SAVE_PERIOD = 10 * 60 * 1000; //10 minutes
+const SAVE_PERIOD_MIN = 5 * 1000;   //5 sec
 
 class YaOdometerView extends Ui.SimpleDataField {
     var m_app = Application.getApp();
     var m_convertMetersToDisplay as Double = 0.01;
 
     var m_lastDistance as Float = 0.0, m_totalSavedDistance as Double = 0.0;
-    var m_lastSavedDistance as Float = 0.0, m_lastSaveMoment as Number = 0;
+    var m_lastSavedDistance as Float = 0.0, m_lastSaveMoment as Number = Sys.getTimer();
+
+    function forceSave() {
+        var now as Number = Sys.getTimer();
+        if(now - m_lastSaveMoment < SAVE_PERIOD_MIN) {
+            return; //too often
+        }
+        m_lastSaveMoment = now - SAVE_PERIOD - 1;
+    }
+
+    function onTimerReset() as Void {
+        forceSave();
+    }
+
+    function onTimerStop() as Void {
+        forceSave();
+    }
 
     function onSettingsChanged() as Void {
+        forceSave();
         m_lastDistance = 0.0;
         m_lastSavedDistance = 0.0;
         m_totalSavedDistance = m_app.readSetting("TotalOffset", 0.0).toDouble();
