@@ -3,4 +3,5 @@
     <string id="Kilometers">Пробег, км</string>
     <string id="Miles">Пробег, миль</string>
     <string id="TotalOffsetTitle">Пробег, в метрах</string>
+    <string id="CaptionTitle">Заголовок</string>
 </strings>

@@ -3,4 +3,5 @@
     <string id="Kilometers">Mileage, km</string>
     <string id="Miles">Mileage</string>
     <string id="TotalOffsetTitle">Offset in meters</string>
+    <string id="CaptionTitle">Custom caption</string>
 </strings>

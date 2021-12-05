@@ -8,7 +8,7 @@ const SAVE_PERIOD = 10 * 60 * 1000; //10 minutes
 const SAVE_PERIOD_MIN = 5 * 1000;   //5 sec
 
 class YaOdometerView extends Ui.SimpleDataField {
-    var m_app as YaOdometerApp = Application.getApp() as YaOdometerApp;
+    var m_app as YaOdometerApp = $.getApp();
     var m_convertMetersToDisplay as Double = 0.01d;
 
     var m_lastDistance as Float = 0.0, m_totalSavedDistance as Double = 0.0d;
@@ -34,11 +34,16 @@ class YaOdometerView extends Ui.SimpleDataField {
         forceSave();
         m_lastDistance = 0.0;
         m_lastSavedDistance = 0.0;
-        m_totalSavedDistance = m_app.readSetting("TotalOffset", 0.0d);
+        m_totalSavedDistance = m_app.readSetting("TotalOffset", 0.0d) as Double;
         if (m_totalSavedDistance < 0.0d) { m_totalSavedDistance = 0.0d; }
 
         var du = Sys.getDeviceSettings().distanceUnits;
-        label = Ui.loadResource(du == Sys.UNIT_STATUTE ? Rez.Strings.Miles : Rez.Strings.Kilometers).toString();
+        var customLabel = m_app.readSetting("Caption", "") as String;
+        if (customLabel.length() == 0) {
+            label = Ui.loadResource(du == Sys.UNIT_STATUTE ? Rez.Strings.Miles : Rez.Strings.Kilometers).toString();
+        } else {
+            label = customLabel;
+        }
         m_convertMetersToDisplay = (du == Sys.UNIT_STATUTE) ? 0.00621371d : 0.01d;
     }
 
