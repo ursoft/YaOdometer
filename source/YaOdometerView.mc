@@ -77,10 +77,16 @@ class YaOdometerView extends Ui.SimpleDataField {
             //раз уменьшилось - то m_lastDistance с предыдущей активности, теперь новый пойдет
             saveChunk(m_lastDistance - m_lastSavedDistance);
             m_lastSavedDistance = 0.0;
+        } else if (m_lastDistance == 0.0 && m_lastSavedDistance == 0.0 && newDistance > 100) {
+            //нули означают, что поле переинициализировано (например, переключали профиль) и почти весь newDistance 
+            // в прошлый раз наверняка уже был учтен - т.е. сейчас нам надо продолжить учет, а не устраивать двойной
+            m_lastDistance = newDistance;
+            m_lastSavedDistance = newDistance;
+            return prettyPrint(m_totalSavedDistance);
         }
         m_lastDistance = newDistance;
-        //не пришло ли время сохранить накопления? смотрим по времени (раз в 10 минут) и расстоянию (раз в километр)
-        if (newDistance > m_lastSavedDistance && (newDistance - m_lastSavedDistance > 1000 || Sys.getTimer() - m_lastSaveMoment > SAVE_PERIOD)) {
+        //не пришло ли время сохранить накопления? смотрим по времени (раз в 10 минут) и расстоянию (раз в 300м)
+        if (newDistance > m_lastSavedDistance && (newDistance - m_lastSavedDistance > 300 || Sys.getTimer() - m_lastSaveMoment > SAVE_PERIOD)) {
             saveChunk(newDistance - m_lastSavedDistance);
             m_lastSavedDistance = newDistance;
         }

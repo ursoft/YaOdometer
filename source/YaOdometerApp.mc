@@ -4,7 +4,7 @@ import Toybox.Time;
 using Toybox.System as Sys;
 using Toybox.WatchUi as Ui;
 
-const APP_VERSION as String = "0.5 #3"; //change it here (the only place)
+const APP_VERSION as String = "0.6 #4"; //change it here (the only place)
 
 class YaOdometerApp extends Application.AppBase {
     function initialize() {
