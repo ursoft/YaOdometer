@@ -4,4 +4,5 @@
     <string id="Miles">Пробег, миль</string>
     <string id="TotalOffsetTitle">Пробег, в метрах</string>
     <string id="CaptionTitle">Заголовок</string>
+    <string id="IntegerTitle">Округлять</string>
 </strings>
